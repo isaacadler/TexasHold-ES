@@ -47,19 +47,19 @@ API REST desenvolvida em **Java 21** e **Spring Boot** para gerenciamento de par
 
 ```mermaid
 flowchart TD
-    Visitante([Visitante / Jogador]) -->|POST /poker/cadastro| API[API TexasHold-ES]
-    API -->|Criptografa Senha & Persiste| DB[(PostgreSQL 18 SSL)]
+    Visitante(["Visitante / Jogador"]) -->|"POST /poker/cadastro"| API["API TexasHold-ES"]
+    API -->|"Criptografa Senha & Persiste"| DB[("PostgreSQL 18 SSL")]
     
-    Visitante -->|GET /poker/partidasAbertas| API
-    API -->|Consulta Mesas Status: AGUARDANDO| DB
+    Visitante -->|"GET /poker/partidasAbertas"| API
+    API -->|"Consulta Mesas Status: AGUARDANDO"| DB
     
-    Visitante -->|POST /poker/{id}/entrar| API
-    API -->|Valida Vagas & Jogador| DB
+    Visitante -->|"POST /poker/:idPartida/entrar"| API
+    API -->|"Valida Vagas & Jogador"| DB
     
-    Host([Jogador Criador / Host]) -->|POST /poker/{id}/iniciar| API
-    API -->|Valida Criador & Min. 2 Jogadores| Regras[Regras do Jogo]
-    Regras -->|BaralhoService 52 Cartas + SecureRandom| Cartas[Distribui 2 cartas por Jogador]
-    Cartas -->|Atualiza Status: EM_ANDAMENTO| DB
+    Host(["Jogador Criador / Host"]) -->|"POST /poker/:idPartida/iniciar"| API
+    API -->|"Valida Criador & Min. 2 Jogadores"| Regras["Regras do Jogo"]
+    Regras -->|"BaralhoService 52 Cartas + SecureRandom"| Cartas["Distribui 2 cartas por Jogador"]
+    Cartas -->|"Atualiza Status: EM_ANDAMENTO"| DB
 ```
 
 ---

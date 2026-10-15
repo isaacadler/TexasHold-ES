@@ -47,19 +47,19 @@ RESTful API developed in **Java 21** and **Spring Boot** for managing Texas Hold
 
 ```mermaid
 flowchart TD
-    Player([Visitor / Player]) -->|POST /poker/cadastro| API[TexasHold-ES API]
-    API -->|Hash Password & Save| DB[(PostgreSQL 18 SSL)]
+    Player(["Visitor / Player"]) -->|"POST /poker/cadastro"| API["TexasHold-ES API"]
+    API -->|"Hash Password & Save"| DB[("PostgreSQL 18 SSL")]
     
-    Player -->|GET /poker/partidasAbertas| API
-    API -->|Fetch Status: WAITING| DB
+    Player -->|"GET /poker/partidasAbertas"| API
+    API -->|"Fetch Status: WAITING"| DB
     
-    Player -->|POST /poker/{id}/entrar| API
-    API -->|Validate Capacity & Player| DB
+    Player -->|"POST /poker/:idPartida/entrar"| API
+    API -->|"Validate Capacity & Player"| DB
     
-    Host([Host / Table Creator]) -->|POST /poker/{id}/iniciar| API
-    API -->|Validate Host & Min. 2 Players| Rules[Poker Rules Engine]
-    Rules -->|BaralhoService 52 Cards + SecureRandom| Cards[Deal 2 Cards per Player]
-    Cards -->|Update Status: IN_PROGRESS| DB
+    Host(["Host / Table Creator"]) -->|"POST /poker/:idPartida/iniciar"| API
+    API -->|"Validate Host & Min. 2 Players"| Rules["Poker Rules Engine"]
+    Rules -->|"BaralhoService 52 Cards + SecureRandom"| Cards["Deal 2 Cards per Player"]
+    Cards -->|"Update Status: IN_PROGRESS"| DB
 ```
 
 ---
