@@ -26,6 +26,21 @@ public class PartidaService {
     private final JogadorRepository jogadorRepository;
     private final BaralhoService baralhoService;
 
+    @Transactional
+    public Long criarPartida(Long idCriador, Integer maxJogadores) {
+        Jogador criador = buscarJogadorOuFalhar(idCriador);
+        int max = (maxJogadores != null && maxJogadores >= 2) ? maxJogadores : 8;
+
+        Partida partida = Partida.builder()
+                .criador(criador)
+                .maxJogadores(max)
+                .status(StatusPartida.AGUARDANDO_JOGADORES)
+                .jogadores(new java.util.ArrayList<>(List.of(criador)))
+                .build();
+
+        return partidaRepository.save(partida).getId();
+    }
+
     @Transactional(readOnly = true)
     public List<PartidaAbertaResponse> listarPartidasAbertas() {
         return partidaRepository.findAllByStatus(StatusPartida.AGUARDANDO_JOGADORES).stream()

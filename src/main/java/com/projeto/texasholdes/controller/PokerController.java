@@ -34,6 +34,15 @@ public class PokerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/criarPartida")
+    public ResponseEntity<java.util.Map<String, Object>> criarPartida(
+            @RequestParam Long idCriador,
+            @RequestParam(required = false, defaultValue = "8") Integer maxJogadores
+    ) {
+        Long idPartida = partidaService.criarPartida(idCriador, maxJogadores);
+        return ResponseEntity.status(HttpStatus.CREATED).body(java.util.Map.of("idPartida", idPartida));
+    }
+
     @GetMapping("/partidasAbertas")
     public ResponseEntity<List<PartidaAbertaResponse>> listarPartidasAbertas() {
         List<PartidaAbertaResponse> response = partidaService.listarPartidasAbertas();
